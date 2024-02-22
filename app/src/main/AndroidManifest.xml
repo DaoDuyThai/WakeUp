@@ -27,6 +27,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.mission.Typing"
+            android:exported="true"/>
     </application>
-
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 </manifest>

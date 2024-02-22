@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/background">
+    <TextView
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50pt"
+        android:textSize="10pt"
+        android:text="Hãy đoán xem đây là từ gì:"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:id="@+id/title"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="10pt"
+        android:text="h/T/i/n/ê/i/T/a"
+        android:textColor="@color/white"
+        android:textSize="15pt"
+        android:id="@+id/question"
+        />
+
+    <EditText
+        android:layout_width="120pt"
+        android:layout_height="20pt"
+        app:layout_constraintTop_toBottomOf="@+id/question"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="10pt"
+        android:background="@color/white"
+        android:id="@+id/input_text"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
