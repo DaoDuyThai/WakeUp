@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/main"
+        android:icon="@drawable/home_24"
+        android:title=""
+        android:tint="@color/button"/>
+    <item
+        android:id="@+id/gmt"
+        android:icon="@drawable/world_24"
+        android:title="" />
+    <item
+        android:id="@+id/timer"
+        android:icon="@drawable/timer_24"
+        android:title="" />
+    <item
+        android:id="@+id/stop_watch"
+        android:icon="@drawable/stopwatch_24"
+        android:title="" />
+</menu>

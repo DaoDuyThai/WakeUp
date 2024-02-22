@@ -6,4 +6,7 @@
     </style>
 
     <style name="Theme.WakeUp" parent="Base.Theme.WakeUp" />
+    <style name="App.Custom.Indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">@android:color/transparent</item>
+    </style>
 </resources>
