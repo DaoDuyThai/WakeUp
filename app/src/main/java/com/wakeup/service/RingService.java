@@ -13,22 +13,6 @@ public class RingService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-
-        // Tạo một đối tượng MediaPlayer
-        mediaPlayer = new MediaPlayer();
-
-        try {
-            // Cài đặt nguồn âm thanh cho MediaPlayer
-            mediaPlayer.setDataSource("./res/Media/bao-thuc-quan-doi.mp3");
-
-            // Chuẩn bị MediaPlayer
-            mediaPlayer.prepare();
-
-            // Phát âm thanh
-            mediaPlayer.start();
-        } catch (Exception e){
-
-        }
     }
 
     @Override
@@ -45,7 +29,7 @@ public class RingService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         // Khởi động Service
-
+        mediaPlayer = MediaPlayer.create(this, intent.getIntExtra("sound", 0));
         return START_NOT_STICKY;
     }
 

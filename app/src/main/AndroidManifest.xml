@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.BROADCAST_CLOSE_SYSTEM_DIALOGS" />
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -18,13 +19,31 @@
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".ui.mission.Typing"
-            android:exported="true"/>
+            android:exported="true" />
+        <activity
+            android:name=".ui.mission.Math"
+            android:exported="true" />
+        <activity
+            android:name=".ui.ring.RingSetUp"
+            android:exported="true"
+            android:enabled="true"/>
+        <service
+            android:name=".service.AlarmService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:exported="false"
+            >
+        </service>
     </application>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+
+
 </manifest>
