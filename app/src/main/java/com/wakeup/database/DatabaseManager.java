@@ -53,7 +53,7 @@ public class DatabaseManager {
             alarm.setId(cursor.getInt(0));
             alarm.setTime(cursor.getLong(1));
             alarm.setMission(cursor.getString(2).split(","));
-            alarm.setOn(cursor.getInt(3) == 1);
+            alarm.setOn(cursor.getInt(3) == 1 ? 1 : 0);
             alarm.setRepeatTime(cursor.getInt(4));
             String[] repeatDate = cursor.getString(5).split(",");
             for (int i = 0; i < repeatDate.length ; i++) {

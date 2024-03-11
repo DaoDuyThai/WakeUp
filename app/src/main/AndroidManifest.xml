@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.BROADCAST_CLOSE_SYSTEM_DIALOGS" />
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WakeUp"
-        tools:targetApi="31">
+        tools:targetApi="32">
         <activity
             android:name=".ui.alarm.AlarmSetup"
             android:exported="true"
@@ -23,6 +22,10 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".ui.alarm.RequestRunTime"
+            android:exported="true">
+        </activity>
+        <activity
             android:name=".ui.mission.Typing"
             android:exported="true" />
         <activity
@@ -30,19 +33,21 @@
             android:exported="true" />
         <activity
             android:name=".ui.ring.RingSetUp"
-            android:exported="true"
-            android:enabled="true"/>
+            android:enabled="true"
+            android:exported="true" />
+
         <service
             android:name=".service.AlarmService"
-            android:permission="android.permission.BIND_JOB_SERVICE"
             android:exported="false"
-            >
-        </service>
+            android:permission="android.permission.BIND_JOB_SERVICE"></service>
     </application>
+
+    <uses-permission android:name="android.permission.BROADCAST_CLOSE_SYSTEM_DIALOGS" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" tools:node="replace"/>
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
 
 

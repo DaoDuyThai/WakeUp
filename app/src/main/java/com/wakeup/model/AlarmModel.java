@@ -22,14 +22,14 @@ public class AlarmModel implements Serializable {
 
     private long time;
     private String[] mission;
-    private boolean isOn;
+    private int isOn;
     private int repeatTime;
     private int[] repeatDate;
     private int sound;
     public AlarmModel() {
     }
 
-    public AlarmModel(long time, String[] mission, boolean isOn, int repeatTime, int[] repeatDate, int sound) {
+    public AlarmModel(long time, String[] mission, int isOn, int repeatTime, int[] repeatDate, int sound) {
         this.time = time;
         this.mission = mission;
         this.isOn = isOn;
@@ -54,11 +54,11 @@ public class AlarmModel implements Serializable {
         this.mission = mission;
     }
 
-    public boolean isOn() {
+    public int isOn() {
         return isOn;
     }
 
-    public void setOn(boolean on) {
+    public void setOn(int on) {
         isOn = on;
     }
 

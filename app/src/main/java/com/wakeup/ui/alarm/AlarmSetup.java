@@ -7,13 +7,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -25,6 +28,7 @@ import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
 import com.wakeup.R;
+import com.wakeup.alarm.AlarmUtils;
 import com.wakeup.database.DatabaseManager;
 import com.wakeup.fragment.MissionChoosingFragment;
 import com.wakeup.fragment.RepeatDateFragment;
@@ -62,6 +66,7 @@ public class AlarmSetup extends AppCompatActivity implements View.OnClickListene
     private AlarmModel alarmModel;
     private DatabaseManager databaseManager;
     private String allMission = "";
+
 
 
     @Override
@@ -166,16 +171,15 @@ public class AlarmSetup extends AppCompatActivity implements View.OnClickListene
         alarmModel.setTime(calendar.getTimeInMillis());
         validateTime(alarmModel);
         alarmModel.setMission(mission);
-        alarmModel.setOn(true);
+        alarmModel.setOn(1);
         alarmModel.setRepeatTime(Integer.parseInt(repeatTime[0]));
         alarmModel.setRepeatDate(repeatDateProcess());
         alarmModel.setSound(soundProcess());
         try {
+//            databaseManager.deleteAllAlarm();
             databaseManager.addAlarm(alarmModel);
-            Intent intent = new Intent(AlarmSetup.this, AlarmService.class);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                startForegroundService(intent);
-            }
+            AlarmUtils.create(this, alarmModel);
+            Toast.makeText(this, "Báo thức đã được đặt thành công!", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -252,4 +256,5 @@ public class AlarmSetup extends AppCompatActivity implements View.OnClickListene
             openFragment(soundChoosingFragment);
         }
     }
+
 }

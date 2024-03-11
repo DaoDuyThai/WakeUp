@@ -5,10 +5,12 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.PowerManager;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
@@ -24,29 +26,12 @@ import java.util.List;
 
 
 public class AlarmService extends Service {
-    private DatabaseManager databaseManager = new DatabaseManager(this);
-
-    private Handler handler;
-
-    @Override
-    public void onCreate() {
-        handler = new Handler();
-    }
-
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        List<AlarmModel> alarmModels = databaseManager.getAlarms();
-        for(AlarmModel alarmModel: alarmModels){
-            if(alarmModel.isOn()){
-                handler.postDelayed(() -> {
-                    Notification notification = buildNotification();
-                    startForeground(1, notification);
-                    sendBroadcast(new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS));
-                }, alarmModel.getTime() - System.currentTimeMillis());
-            }
-        }
-
-
+        Notification notification = buildNotification();
+        startForeground(1, notification);
+        Log.d("Samsung", "in");
+        sendBroadcast(new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS));
         return START_NOT_STICKY;
     }
 
