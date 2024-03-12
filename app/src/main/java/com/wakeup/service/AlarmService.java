@@ -42,7 +42,7 @@ public class AlarmService extends Service {
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder((this))
-                .setSmallIcon(R.drawable.ic_notifications_black_24dp)
+                .setSmallIcon(R.drawable.plus)
                 .setContentTitle("Alarm")
                 .setContentText("Alarm is ringing")
                 .setPriority(NotificationCompat.PRIORITY_HIGH)

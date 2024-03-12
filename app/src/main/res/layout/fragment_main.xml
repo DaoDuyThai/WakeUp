@@ -276,11 +276,10 @@
         android:layout_marginBottom="16dp"
         android:clickable="true"
         android:src="@drawable/add_24"
-        app:backgroundTint="@color/button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:iconPadding="0dp"
-        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Circular" />
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
