@@ -167,7 +167,7 @@ public class AlarmSetup extends AppCompatActivity implements View.OnClickListene
         calendar.set(Calendar.MINUTE, minute.getValue());
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
-        calendar.set(Calendar.AM_PM, Calendar.PM);
+        calendar.set(Calendar.AM_PM, Calendar.AM);
         alarmModel.setTime(calendar.getTimeInMillis());
         validateTime(alarmModel);
         alarmModel.setMission(mission);
