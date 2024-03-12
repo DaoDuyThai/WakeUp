@@ -3,53 +3,209 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
-    android:padding="3pt">
+    android:background="@color/black">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5pt"
-        android:text="Đổ chuông sau 20 giờ 22 phút."
-        android:textColor="@color/white"
-        android:textStyle="bold"
+        android:background="@color/background"
+        android:padding="3pt"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/time_notification"/>
+        android:id="@+id/tab1">
 
-    <TextView
-        android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/time_notification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5pt"
+            android:text="Đổ chuông sau 20 giờ 22 phút."
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5pt"
+            android:text="Xem trước"
+            android:textColor="@color/white"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/time_notification">
+            <NumberPicker
+                android:layout_width="wrap_content"
+                android:layout_height="150pt"
+                android:id="@+id/hour"
+                android:theme="@style/AppTheme.Picker"/>
+
+            <NumberPicker
+                android:layout_width="wrap_content"
+                android:layout_height="150pt"
+                android:theme="@style/AppTheme.Picker"
+                android:id="@+id/minute"
+                android:layout_marginHorizontal="10pt" />
+
+            <NumberPicker
+                android:layout_width="wrap_content"
+                android:layout_height="150pt"
+                android:id="@+id/inDay"
+                android:theme="@style/AppTheme.Picker"
+                />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10pt"
+            android:text="Lặp lại"
+            android:textColor="@color/white"
+            android:textSize="8pt"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10pt"
+            android:text="Không lặp lại. >"
+            android:id="@+id/repeat_date"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5pt"
-        android:text="Xem trước"
-        android:textColor="@color/white"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-    <ScrollView
-        android:layout_width="20pt"
-        android:layout_height="50pt"
-        android:layout_marginTop="20pt"
-        android:layout_marginLeft="35pt"
-        app:layout_constraintTop_toBottomOf="@id/time_notification"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:id="@+id/hour_scroll_view" />
-    <RelativeLayout
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tab1"
+        android:background="@color/background"
+        android:layout_marginTop="5pt"
+        android:paddingHorizontal="10pt"
+        android:paddingVertical="5pt"
+        android:id="@+id/tab2"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nhiệm vụ"
+            android:textColor="@color/white"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/label"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            >
+            <ImageView
+                android:layout_width="20pt"
+                android:layout_height="20pt"
+                android:contentDescription="hello"
+                android:src="@drawable/plus"
+                android:id="@+id/mission_one"/>
+            <ImageView
+                android:layout_width="20pt"
+                android:layout_height="20pt"
+                android:contentDescription="hello"
+                android:src="@drawable/plus"
+                android:layout_marginHorizontal="30pt"
+                android:id="@+id/mission_two"/>
+        </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tab2"
+        android:background="@color/background"
+        android:layout_marginTop="5pt"
+        android:paddingHorizontal="10pt"
+        android:paddingVertical="5pt"
+        >
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Báo lại"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="8pt"
+            android:textColor="@color/white"
+            android:id="@+id/tab3_layout1"
+            />
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Không báo lại. >"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="2pt"
+            android:textColor="@color/white"
+            android:id="@+id/tab3_layout2"
+            />
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Chuông báo thức"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tab3_layout1"
+            android:textSize="8pt"
+            android:textColor="@color/white"
+            android:layout_marginTop="10pt"
+            />
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Tiếng kèn quân đội. >"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tab3_layout1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="@color/white"
+            android:id="@+id/soundChoosing"
+            android:layout_marginTop="10pt"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        >
+        app:layout_constraintRight_toRightOf="parent">
 
         <Button
+            android:id="@+id/save_alarm_button"
             android:layout_width="150pt"
             android:layout_height="wrap_content"
             android:backgroundTint="#EB2641"
             android:text="Lưu"
             android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="parent" />
-    </RelativeLayout>
+    </LinearLayout>
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="280pt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/frame_layout_theme"
+        android:id="@+id/frame_layout"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WakeUp"
-        tools:targetApi="31">
+        tools:targetApi="32">
         <activity
             android:name=".Settings"
             android:exported="false" />
@@ -23,13 +23,37 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
+            android:name=".ui.alarm.RequestRunTime"
+            android:exported="true">
+        </activity>
+        <activity
             android:name=".ui.mission.Typing"
-            android:exported="true"/>
+            android:exported="true" />
+        <activity
+            android:name=".ui.mission.Math"
+            android:exported="true" />
+        <activity
+            android:name=".ui.ring.RingSetUp"
+            android:enabled="true"
+            android:exported="true" />
+
+        <service
+            android:name=".service.AlarmService"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE"></service>
     </application>
+
+    <uses-permission android:name="android.permission.BROADCAST_CLOSE_SYSTEM_DIALOGS" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" tools:node="replace"/>
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+
+
 </manifest>
