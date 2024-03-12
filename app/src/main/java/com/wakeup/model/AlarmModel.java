@@ -2,10 +2,12 @@ package com.wakeup.model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 import java.util.Calendar;
-
+import java.util.TimeZone;
 
 
 import lombok.AllArgsConstructor;
@@ -30,6 +32,9 @@ public class AlarmModel implements Serializable {
     private int repeatTime;
     private int[] repeatDate;
     private int sound;
+    //add hours and minutes
+    //private int minutes;
+
     public AlarmModel() {
     }
 
@@ -90,12 +95,24 @@ public class AlarmModel implements Serializable {
         this.sound = sound;
     }
 
-    public String getExactTime() {
-        long currentTimeMillis = System.currentTimeMillis();
+    public String getExactTime(long timeInMillis) {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(currentTimeMillis);
-        int hours = calendar.get(Calendar.HOUR_OF_DAY);
-        int minutes = calendar.get(Calendar.MINUTE);
-        return String.format("%02d:%02d", hours, minutes);
+        calendar.setTimeInMillis(timeInMillis);
+
+        // Get hour, minute, and AM/PM from the Calendar object
+        int hourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+        int amPm = calendar.get(Calendar.AM_PM);
+
+        // Convert hour to 12-hour format if necessary
+        String amPmString = (amPm == Calendar.AM) ? "AM" : "PM";
+        if (hourOfDay > 12) {
+            hourOfDay -= 12;
+        } else if (hourOfDay == 0) {
+            hourOfDay = 12;
+        }
+
+        // Format the time as HH:mm AM/PM
+        return String.format(Locale.getDefault(), "%02d:%02d %s", hourOfDay, minute, amPmString);
     }
 }

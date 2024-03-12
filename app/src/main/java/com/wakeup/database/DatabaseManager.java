@@ -46,24 +46,26 @@ public class DatabaseManager {
         SQLiteDatabase db = databaseHandler.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM alarm", null);
         List<AlarmModel> alarms = new ArrayList<>();
-        cursor.moveToFirst();
-        int[] repeatDateInt = new int[7];
-        do {
-            AlarmModel alarm = new AlarmModel();
-            alarm.setId(cursor.getInt(0));
-            alarm.setTime(cursor.getLong(1));
-            alarm.setMission(cursor.getString(2).split(","));
-            alarm.setOn(cursor.getInt(3) == 1 ? 1 : 0);
-            alarm.setRepeatTime(cursor.getInt(4));
-            String[] repeatDate = cursor.getString(5).split(",");
-            for (int i = 0; i < repeatDate.length ; i++) {
-                repeatDateInt[i] = Integer.parseInt(repeatDate[i]);
-            }
-            alarm.setRepeatDate(repeatDateInt);
-            alarm.setSound(cursor.getInt(6));
-            alarms.add(alarm);
-        }while (cursor.moveToNext());
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                AlarmModel alarm = new AlarmModel();
+                alarm.setId(cursor.getInt(0));
+                alarm.setTime(cursor.getLong(1));
+                alarm.setMission(cursor.getString(2).split(","));
+                alarm.setOn(cursor.getInt(3) == 1 ? 1 : 0);
+                alarm.setRepeatTime(cursor.getInt(4));
+                String[] repeatDate = cursor.getString(5).split(",");
+                int[] repeatDateInt = new int[repeatDate.length];
+                for (int i = 0; i < repeatDate.length; i++) {
+                    repeatDateInt[i] = Integer.parseInt(repeatDate[i]);
+                }
+                alarm.setRepeatDate(repeatDateInt);
+                alarm.setSound(cursor.getInt(6));
+                alarms.add(alarm);
+            } while (cursor.moveToNext());
 
+            cursor.close();
+        }
 
         db.close();
         return alarms;

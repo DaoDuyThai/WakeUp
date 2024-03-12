@@ -15,6 +15,7 @@ import com.wakeup.AlarmViewHolder;
 import com.wakeup.model.AlarmModel;
 import com.wakeup.R;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -44,10 +45,11 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmViewHolder> {
 
         holder.itemView.setId(alarm.getId());
 
-        holder.time_view.setText(String.valueOf(alarm.getTime()));
-        holder.time_view.setText(alarm.getExactTime());
+//        holder.time_view.setText(String.valueOf(alarm.getTime()));
+        holder.time_view.setText(alarm.getExactTime(alarm.getTime()));
 
         holder.repeat_date_view.setText(Arrays.toString(alarm.getRepeatDate()));
+
         holder.mission_view.setText(Arrays.toString(alarm.getMission()));
         holder.is_on_button_view.setChecked(alarm.isOn() == 1);
 
@@ -63,4 +65,6 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmViewHolder> {
     public int getItemCount() {
         return alarms.size();
     }
+
+
 }

@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.wakeup.MainActivity;
 import com.wakeup.R;
 import com.wakeup.AlarmAdapter;
 import com.wakeup.database.DatabaseManager;
@@ -50,10 +51,16 @@ public class MainFragment extends Fragment {
 
         DatabaseManager databaseManager = new DatabaseManager(getActivity());
         alarms = databaseManager.getAlarms();
-
+//        alarmAdapter = new AlarmAdapter(getActivity(), alarms);
+//        recyclerView.setAdapter(alarmAdapter);
 
         alarmAdapter = new AlarmAdapter(getActivity(), alarms);
-        recyclerView.setAdapter(alarmAdapter);
+        if (!alarms.isEmpty()) {
+            alarmAdapter = new AlarmAdapter(getActivity(), alarms);
+            recyclerView.setAdapter(alarmAdapter);
+        } else {
+            recyclerView.setVisibility(View.GONE);
+        }
 
         return rootView;
     }
