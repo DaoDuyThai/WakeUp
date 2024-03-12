@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_primary"
+    tools:context=".Settings">
+
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="36dp"
+        android:text="Cài đặt"
+        android:textColor="@color/text_primary"
+        android:textSize="24dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/materialButton1"
+        android:layout_width="368dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="40dp"
+        android:backgroundTint="@color/background_secondary"
+        android:text="WAKEUP PREMIUM"
+        android:textAlignment="textStart"
+        app:cornerRadius="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.372"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/materialButton2"
+        android:layout_width="368dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/background_secondary"
+        android:text="Đăng nhập"
+        android:textAlignment="textStart"
+        app:cornerRadius="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/materialButton1"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/materialButton1"
+        app:layout_constraintTop_toBottomOf="@+id/materialButton1" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/materialButton3"
+        android:layout_width="368dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/background_secondary"
+        android:text="Tối ưu hoá sử dụng"
+        android:textAlignment="textStart"
+        app:cornerRadius="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/materialButton2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/materialButton2"
+        app:layout_constraintTop_toBottomOf="@+id/materialButton2" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/materialButton4"
+        android:layout_width="368dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="28dp"
+        android:backgroundTint="@color/background_secondary"
+        android:text="Các câu hỏi thường gặp"
+        android:textAlignment="textStart"
+        app:cornerRadius="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/materialButton3"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/materialButton3"
+        app:layout_constraintTop_toBottomOf="@+id/materialButton3" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/materialButton5"
+        android:layout_width="368dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/background_secondary"
+        android:text="Gửi phản hồi"
+        android:textAlignment="textStart"
+        app:cornerRadius="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/materialButton4"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/materialButton4"
+        app:layout_constraintTop_toBottomOf="@+id/materialButton4" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/materialButton6"
+        android:layout_width="368dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/background_secondary"
+        android:text="Thông tin ứng dụng"
+        android:textAlignment="textStart"
+        app:cornerRadius="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/materialButton5"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/materialButton5"
+        app:layout_constraintTop_toBottomOf="@+id/materialButton5" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="THEO DÕI WAKEUP TẠI"
+        android:textColor="@color/text_primary"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/materialButton6" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/youtube"
+        android:layout_width="135dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@color/background_secondary"
+        android:text="Youtube"
+        android:textAlignment="textStart"
+        app:cornerRadius="15dp"
+        app:icon="@drawable/youtube_24"
+        app:iconGravity=""
+        app:iconTint="@color/button"
+        app:layout_constraintEnd_toStartOf="@+id/tiktok"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/tiktok"
+        android:layout_width="135dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="36dp"
+        android:backgroundTint="@color/background_secondary"
+        android:text="Youtube"
+        android:textAlignment="textStart"
+        app:iconTint="@color/aqua"
+        app:cornerRadius="15dp"
+        app:icon="@drawable/tik_tok_24"
+        app:iconGravity=""
+        app:layout_constraintBottom_toBottomOf="@+id/youtube"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/youtube"
+        app:layout_constraintTop_toTopOf="@+id/youtube"
+        app:layout_constraintVertical_bias="0.0" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

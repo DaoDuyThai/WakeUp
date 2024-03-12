@@ -1,37 +1,50 @@
 package com.wakeup;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-
-import com.wakeup.databinding.ActivityMainBinding;
+import com.google.android.material.navigation.NavigationBarView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ActivityMainBinding binding;
+    BottomNavigationView bottomNavigationView;
+
+    MainFragment mainFragment = new MainFragment();
+    GmtFragment gmtFragment = new GmtFragment();
+    StopWatchFragment stopWatchFragment = new StopWatchFragment();
+    TimerFragment timerFragment = new TimerFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        bottomNavigationView = findViewById(R.id.bottom_navigation_view);
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, mainFragment).commit();
 
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(binding.navView, navController);
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if (item.getItemId() == R.id.main) {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container, mainFragment).commit();
+                    return true;
+                } else if (item.getItemId() == R.id.gmt) {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container, gmtFragment).commit();
+                    return true;
+                } else if (item.getItemId() == R.id.stop_watch) {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container, stopWatchFragment).commit();
+                    return true;
+                } else if (item.getItemId() == R.id.timer) {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container, timerFragment).commit();
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
 }

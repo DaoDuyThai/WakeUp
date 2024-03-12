@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/background_primary">
+
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:text="Các ngày làm việc"
+        android:textColor="@color/text_secondary"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="18:00"
+        android:textColor="@color/text_primary"
+        android:textSize="36dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/description"
+        app:layout_constraintTop_toBottomOf="@+id/description" />
+
+    <TextView
+        android:id="@+id/mission"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Giải toán"
+        android:textColor="@color/text_primary"
+        app:layout_constraintStart_toStartOf="@+id/time"
+        app:layout_constraintTop_toBottomOf="@+id/time" />
+
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="248dp"
+        android:layout_marginTop="8dp"
+        android:focusedSearchResultHighlightColor="@color/text_primary"
+        android:outlineSpotShadowColor="@color/text_primary"
+        app:layout_constraintStart_toEndOf="@+id/time"
+        app:layout_constraintTop_toTopOf="@+id/time" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
+        android:background="#00FFFFFF"
+        app:layout_constraintStart_toStartOf="@+id/switch1"
+        app:layout_constraintTop_toBottomOf="@+id/switch1"
+        app:srcCompat="@drawable/menu_dots_vertical_24" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
