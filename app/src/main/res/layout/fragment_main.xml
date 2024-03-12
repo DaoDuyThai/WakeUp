@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_primary"
-    tools:context=".MainFragment">
+    tools:context=".fragment.MainFragment">
 
     <Button
         android:id="@+id/to_next_alarm"
@@ -21,20 +21,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:gravity="center"
-        android:text="Đổ chuông sau 21 giờ 48 phút"
-        android:textColor="@color/text_primary"
-        android:textSize="28dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/to_settings"
-        app:layout_constraintStart_toStartOf="@+id/to_next_alarm"
-        app:layout_constraintTop_toBottomOf="@+id/to_next_alarm" />
-
     <!--    <androidx.recyclerview.widget.RecyclerView-->
     <!--        android:id="@+id/recyclerView"-->
     <!--        android:layout_width="match_parent"-->
@@ -45,241 +31,67 @@
 
     <!--    </androidx.recyclerview.widget.RecyclerView>-->
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="Đổ chuông sau 21 giờ 48 phút"
+        android:textColor="@color/text_primary"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/to_next_alarm"
+        app:layout_constraintTop_toBottomOf="@+id/to_next_alarm" />
+
+
     <ImageButton
         android:id="@+id/to_settings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="140dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginEnd="10dp"
         android:background="#00FFFFFF"
         android:src="@drawable/menu_dots_vertical_24"
-        app:layout_constraintStart_toEndOf="@+id/to_next_alarm"
+        app:layout_constraintBottom_toBottomOf="@+id/to_next_alarm"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/to_next_alarm" />
 
-    <!-- Báo thức 1 -->
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/alarm1_layout"
-        android:layout_width="361dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:background="@color/background_secondary"
-        android:padding="16dp"
-        app:cardCornerRadius="16dp"
-        app:layout_constraintEnd_toEndOf="@+id/textView"
-        app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
-        id
-        <!-- Báo thức 1 -->
-        <TextView
-            android:id="@+id/description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="4dp"
-            android:text="Các ngày làm việc"
-            android:textColor="@color/text_secondary"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="18:00"
-            android:textColor="@color/text_primary"
-            android:textSize="36dp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/description"
-            app:layout_constraintTop_toBottomOf="@+id/description" />
-
-        <TextView
-            android:id="@+id/mission"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Giải toán"
-            android:textColor="@color/text_primary"
-            app:layout_constraintStart_toStartOf="@+id/time"
-            app:layout_constraintTop_toBottomOf="@+id/time" />
-
-        <Switch
-            android:id="@+id/switch1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="184dp"
-            android:layout_marginTop="12dp"
-            android:focusedSearchResultHighlightColor="@color/text_primary"
-            android:outlineSpotShadowColor="@color/text_primary"
-            app:layout_constraintStart_toEndOf="@+id/time"
-            app:layout_constraintTop_toTopOf="@+id/time" />
-
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="20dp"
-            android:background="#00FFFFFF"
-            app:layout_constraintStart_toStartOf="@+id/switch1"
-            app:layout_constraintTop_toBottomOf="@+id/switch1"
-            app:srcCompat="@drawable/menu_dots_vertical_24" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <!-- Báo thức 2 -->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/alarm2_layout"
-        android:layout_width="361dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:background="@color/background_secondary"
-        android:padding="16dp"
-        app:cardCornerRadius="16dp"
-        app:layout_constraintEnd_toEndOf="@+id/textView"
-        app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/alarm1_layout">
-
-        <!-- Báo thức 2 -->
-        <TextView
-            android:id="@+id/alarm2_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="4dp"
-            android:text="Các ngày nghỉ"
-            android:textColor="@color/text_secondary"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/alarm2_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="07:00"
-            android:textColor="@color/text_primary"
-            android:textSize="36dp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/alarm2_description"
-            app:layout_constraintTop_toBottomOf="@+id/alarm2_description" />
-
-        <TextView
-            android:id="@+id/alarm2_mission"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Dạy học"
-            android:textColor="@color/text_primary"
-            app:layout_constraintStart_toStartOf="@+id/alarm2_time"
-            app:layout_constraintTop_toBottomOf="@+id/alarm2_time" />
-
-        <Switch
-            android:id="@+id/alarm2_switch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="184dp"
-            android:layout_marginTop="12dp"
-            app:layout_constraintStart_toEndOf="@+id/alarm2_time"
-            app:layout_constraintTop_toTopOf="@+id/alarm2_time" />
-
-        <ImageButton
-            android:id="@+id/alarm2_menu_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="20dp"
-            android:background="#00FFFFFF"
-            app:layout_constraintStart_toStartOf="@+id/alarm2_switch"
-            app:layout_constraintTop_toBottomOf="@+id/alarm2_switch"
-            app:srcCompat="@drawable/menu_dots_vertical_24" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <!-- Báo thức 3 -->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/alarm3_layout"
-        android:layout_width="361dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:background="@color/background_secondary"
-        android:padding="16dp"
-        app:cardCornerRadius="16dp"
-        app:layout_constraintEnd_toEndOf="@+id/textView"
-        app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/alarm2_layout">
-
-        <TextView
-            android:id="@+id/alarm3_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="4dp"
-            android:text="Các ngày cuối tuần"
-            android:textColor="@color/text_secondary"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/alarm3_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="09:00"
-            android:textColor="@color/text_primary"
-            android:textSize="36dp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/alarm3_description"
-            app:layout_constraintTop_toBottomOf="@+id/alarm3_description" />
-
-        <TextView
-            android:id="@+id/alarm3_mission"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Dọn dẹp nhà cửa"
-            android:textColor="@color/text_primary"
-            app:layout_constraintStart_toStartOf="@+id/alarm3_time"
-            app:layout_constraintTop_toBottomOf="@+id/alarm3_time" />
-
-        <Switch
-            android:id="@+id/alarm3_switch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="184dp"
-            android:layout_marginTop="12dp"
-            app:layout_constraintStart_toEndOf="@+id/alarm3_time"
-            app:layout_constraintTop_toTopOf="@+id/alarm3_time" />
-
-        <ImageButton
-            android:id="@+id/alarm3_menu_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="20dp"
-            android:background="#00FFFFFF"
-            app:layout_constraintStart_toStartOf="@+id/alarm3_switch"
-            app:layout_constraintTop_toBottomOf="@+id/alarm3_switch"
-            app:srcCompat="@drawable/menu_dots_vertical_24" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
+        android:id="@+id/add_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:clickable="true"
         android:src="@drawable/add_24"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:iconPadding="0dp"
-        />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background_secondary"
+        android:padding="16dp"
+        app:cardCornerRadius="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        tools:layout_editor_absoluteX="0dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:paddingBottom="100dp"/>
+
+
+
+
+    </RelativeLayout>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

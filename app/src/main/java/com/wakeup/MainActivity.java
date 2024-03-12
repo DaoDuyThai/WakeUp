@@ -8,6 +8,10 @@ import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.wakeup.fragment.GmtFragment;
+import com.wakeup.fragment.MainFragment;
+import com.wakeup.fragment.StopWatchFragment;
+import com.wakeup.fragment.TimerFragment;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -31,10 +31,12 @@ public class AlarmUtils {
         for (AlarmModel alarmModel : models) {
             if (alarmModel.isOn() == 1) {
                 Log.d("AlarmUtils", "alarm" + alarmModel.getId() + "is on");
-                PendingIntent pendingIntent =
-                        PendingIntent.getService(context, REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-                REQUEST_CODE++;
-                alarmManager.set(AlarmManager.RTC_WAKEUP, alarmModel.getTime(), pendingIntent);
+                if(alarmModel.getTime() >= System.currentTimeMillis()) {
+                    PendingIntent pendingIntent =
+                            PendingIntent.getService(context, REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    REQUEST_CODE++;
+                    alarmManager.set(AlarmManager.RTC_WAKEUP, alarmModel.getTime(), pendingIntent);
+                }
             }
         }
     }

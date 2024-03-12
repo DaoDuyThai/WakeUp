@@ -27,6 +27,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
+import com.wakeup.MainActivity;
 import com.wakeup.R;
 import com.wakeup.alarm.AlarmUtils;
 import com.wakeup.database.DatabaseManager;
@@ -167,7 +168,7 @@ public class AlarmSetup extends AppCompatActivity implements View.OnClickListene
         calendar.set(Calendar.MINUTE, minute.getValue());
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
-        calendar.set(Calendar.AM_PM, Calendar.AM);
+        calendar.set(Calendar.AM_PM, Calendar.PM);
         alarmModel.setTime(calendar.getTimeInMillis());
         validateTime(alarmModel);
         alarmModel.setMission(mission);
@@ -255,6 +256,14 @@ public class AlarmSetup extends AppCompatActivity implements View.OnClickListene
         } else if (v.getId() == R.id.soundChoosing) {
             openFragment(soundChoosingFragment);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        // Start the MainActivity when back button is pressed
+        super.onBackPressed();
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
 }

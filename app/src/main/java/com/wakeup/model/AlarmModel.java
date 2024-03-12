@@ -3,6 +3,10 @@ package com.wakeup.model;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
+import java.util.Calendar;
+
+
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -84,5 +88,14 @@ public class AlarmModel implements Serializable {
 
     public void setSound(int sound) {
         this.sound = sound;
+    }
+
+    public String getExactTime() {
+        long currentTimeMillis = System.currentTimeMillis();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(currentTimeMillis);
+        int hours = calendar.get(Calendar.HOUR_OF_DAY);
+        int minutes = calendar.get(Calendar.MINUTE);
+        return String.format("%02d:%02d", hours, minutes);
     }
 }

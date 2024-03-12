@@ -48,7 +48,7 @@ public class DatabaseManager {
         List<AlarmModel> alarms = new ArrayList<>();
         cursor.moveToFirst();
         int[] repeatDateInt = new int[7];
-        while (cursor.moveToNext()) {
+        do {
             AlarmModel alarm = new AlarmModel();
             alarm.setId(cursor.getInt(0));
             alarm.setTime(cursor.getLong(1));
@@ -62,7 +62,9 @@ public class DatabaseManager {
             alarm.setRepeatDate(repeatDateInt);
             alarm.setSound(cursor.getInt(6));
             alarms.add(alarm);
-        }
+        }while (cursor.moveToNext());
+
+
         db.close();
         return alarms;
     }
@@ -79,5 +81,11 @@ public class DatabaseManager {
         db.close();
     }
 
+    public void toggleAlarm(int id, boolean isEnabled) {
+        SQLiteDatabase db = databaseHandler.getWritableDatabase();
+        int isOn = isEnabled ? 1 : 0;
+        db.execSQL("UPDATE alarm SET isOn = " + isOn + " WHERE id = " + id);
+        db.close();
+    }
 
 }
