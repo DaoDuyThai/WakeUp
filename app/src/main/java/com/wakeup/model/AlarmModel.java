@@ -32,8 +32,46 @@ public class AlarmModel implements Serializable {
     private int repeatTime;
     private int[] repeatDate;
     private int sound;
+
+    public AlarmModel(int id, long time, String[] mission, int isOn, int repeatTime, int[] repeatDate, int sound, String minutes, String hours) {
+        this.id = id;
+        this.time = time;
+        this.mission = mission;
+        this.isOn = isOn;
+        this.repeatTime = repeatTime;
+        this.repeatDate = repeatDate;
+        this.sound = sound;
+        this.minutes = minutes;
+        this.hours = hours;
+    }
+
+    public int getIsOn() {
+        return isOn;
+    }
+
+    public void setIsOn(int isOn) {
+        this.isOn = isOn;
+    }
+
+    public String getHours() {
+        return hours;
+    }
+
+    public void setHours(String hours) {
+        this.hours = hours;
+    }
+
+    public String getMinutes() {
+        return minutes;
+    }
+
+    public void setMinutes(String minutes) {
+        this.minutes = minutes;
+    }
+
     //add hours and minutes
-    //private int minutes;
+    private String minutes;
+    private String hours;
 
     public AlarmModel() {
     }

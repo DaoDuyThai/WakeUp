@@ -171,13 +171,15 @@ public class AlarmSetup extends AppCompatActivity implements View.OnClickListene
         calendar.set(Calendar.AM_PM, Calendar.PM);
         alarmModel.setTime(calendar.getTimeInMillis());
         validateTime(alarmModel);
+        alarmModel.setHours(hour.getValue()+"");
+        alarmModel.setMinutes(minute.getValue()+"");
         alarmModel.setMission(mission);
         alarmModel.setOn(1);
         alarmModel.setRepeatTime(Integer.parseInt(repeatTime[0]));
         alarmModel.setRepeatDate(repeatDateProcess());
         alarmModel.setSound(soundProcess());
         try {
-//            databaseManager.deleteAllAlarm();
+//            databaseManager.droptable();
             databaseManager.addAlarm(alarmModel);
             AlarmUtils.create(this, alarmModel);
             Toast.makeText(this, "Báo thức đã được đặt thành công!", Toast.LENGTH_SHORT).show();

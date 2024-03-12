@@ -32,7 +32,7 @@ public class DatabaseManager {
                 repeatDate += ",";
             }
         }
-        db.execSQL("INSERT INTO alarm (time, mission, isOn, repeatTime, repeatDate, sound) VALUES ('" + alarm.getTime() + "', '" + mission + "', '" + alarm.isOn() + "', '" + alarm.getRepeatTime() + "', '" + repeatDate + "', '" + alarm.getSound() + "')");
+        db.execSQL("INSERT INTO alarm (time, mission, isOn, repeatTime, repeatDate, sound, hours, minutes) VALUES ('" + alarm.getTime() + "', '" + mission + "', '" + alarm.isOn() + "', '" + alarm.getRepeatTime() + "', '" + repeatDate + "', '" + alarm.getSound() + "','" + alarm.getHours() + "','" + alarm.getMinutes() + "')");
         db.close();
     }
 
@@ -87,6 +87,12 @@ public class DatabaseManager {
         SQLiteDatabase db = databaseHandler.getWritableDatabase();
         int isOn = isEnabled ? 1 : 0;
         db.execSQL("UPDATE alarm SET isOn = " + isOn + " WHERE id = " + id);
+        db.close();
+    }
+
+    public void droptable() {
+        SQLiteDatabase db = databaseHandler.getWritableDatabase();
+        db.execSQL("DROP TABLE IF EXISTS alarm");
         db.close();
     }
 

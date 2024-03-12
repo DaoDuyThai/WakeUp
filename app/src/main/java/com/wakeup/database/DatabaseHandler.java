@@ -17,6 +17,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final String MISSION = "mission";
     private final String REPEAT_DATE = "repeatDate";
 
+    private final String  HOURS = "hours";
+    private final String MINUTES = "minutes";
+
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, 1);
@@ -24,7 +27,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createDatabase = String.format("CREATE TABLE %s(%s INTEGER PRIMARY KEY, %s INTEGER, %s INTEGER, %s TEXT, %s INTEGER,%s TEXT, %s INTEGER)", TABLE_NAME, ID, TIME, MISSION, IsON, REPEAT_TIME, REPEAT_DATE, SOUND);
+        String createDatabase = String.format("CREATE TABLE %s(%s INTEGER PRIMARY KEY, %s INTEGER, %s INTEGER, %s TEXT, %s INTEGER,%s TEXT, %s INTEGER, %s TEXT, %s TEXT)", TABLE_NAME, ID, TIME, MISSION, IsON, REPEAT_TIME, REPEAT_DATE, SOUND, HOURS, MINUTES);
         db.execSQL(createDatabase);
     }
 
@@ -34,4 +37,5 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(dropDatabase);
         onCreate(db);
     }
+
 }
