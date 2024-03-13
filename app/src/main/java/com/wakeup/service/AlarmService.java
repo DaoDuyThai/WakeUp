@@ -1,11 +1,14 @@
 package com.wakeup.service;
 
+import static android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK;
+
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.content.pm.ServiceInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -28,12 +31,26 @@ import kotlin.reflect.KVariance;
 
 
 public class AlarmService extends Service {
+    private NotificationManager notificationManager;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+    }
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         String missions = intent.getStringExtra("alarmMission");
         Notification notification = buildNotification(missions);
-        sendBroadcast(new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS));
-        startForeground(1, notification);
+//        sendBroadcast(new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS));
+        if (Build.VERSION.SDK_INT >= 34) {
+            startForeground(1, notification,
+                    ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC);
+        } else {
+//            startForeground(1, notification);
+            notificationManager.notify(1, notification);
+        }
         return START_NOT_STICKY;
     }
 
@@ -43,8 +60,13 @@ public class AlarmService extends Service {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra("alarmMission", missions);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        PendingIntent pendingIntent;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+            pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
+        } else {
+            pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        }
+
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder((this))
                 .setSmallIcon(R.drawable.ic_notifications_black_24dp)
                 .setContentTitle("Alarm")

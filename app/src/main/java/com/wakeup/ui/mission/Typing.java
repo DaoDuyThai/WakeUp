@@ -25,8 +25,8 @@ import java.util.List;
 public class Typing extends AppCompatActivity implements View.OnClickListener {
     private HashMap<String, String> map = new HashMap<>();
     private List<String> keys = new ArrayList<>();
-    private TextView textView;
-    private EditText editText;
+    private TextView question;
+    private EditText awswer;
     private int total = 0;
 
     @Override
@@ -39,13 +39,13 @@ public class Typing extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void initView() {
-        textView = findViewById(R.id.question);
-        editText = findViewById(R.id.input_text);
+        question = findViewById(R.id.question);
+        awswer = findViewById(R.id.input_text);
     }
 
     private void bindDataToView() {
         try {
-            textView.setText(map.get(keys.get(0)));
+            question.setText(map.get(keys.get(0)));
         } catch (IndexOutOfBoundsException e) {
             e.printStackTrace();
         }

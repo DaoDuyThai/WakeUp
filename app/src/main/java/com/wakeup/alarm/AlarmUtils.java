@@ -41,7 +41,7 @@ public class AlarmUtils {
                     PendingIntent pendingIntent;
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
                         pendingIntent =
-                                PendingIntent.getService(context, alarmModel.getId(), intent, PendingIntent.FLAG_MUTABLE);
+                                PendingIntent.getService(context, alarmModel.getId(), intent, PendingIntent.FLAG_MUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
                     } else {
                         pendingIntent =
                                 PendingIntent.getService(context, alarmModel.getId(), intent, PendingIntent.FLAG_UPDATE_CURRENT);

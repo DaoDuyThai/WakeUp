@@ -38,6 +38,7 @@ public class RingService extends Service {
                 if (!mediaPlayer.isPlaying()) {
                     Log.d("Nhạc", "Đang chạy rồi đó");
                     mediaPlayer.start();
+                    mediaPlayer.setLooping(true);
                 }
             }
         }).start();
