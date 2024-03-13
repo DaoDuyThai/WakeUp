@@ -1,5 +1,10 @@
 package com.wakeup.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -9,7 +14,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-public class AlarmModel implements Serializable {
+public class AlarmModel {
     private int id;
 
     public int getId() {
@@ -85,4 +90,5 @@ public class AlarmModel implements Serializable {
     public void setSound(int sound) {
         this.sound = sound;
     }
+
 }

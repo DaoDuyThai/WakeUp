@@ -1,22 +1,14 @@
 package com.wakeup.ui.alarm;
 
-import android.app.job.JobInfo;
-import android.app.job.JobScheduler;
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -24,8 +16,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
 
 import com.wakeup.R;
 import com.wakeup.alarm.AlarmUtils;
@@ -36,7 +26,6 @@ import com.wakeup.fragment.SoundChoosingFragment;
 import com.wakeup.fragment.SoundRepeatFragment;
 import com.wakeup.model.AlarmModel;
 import com.wakeup.model.Mission;
-import com.wakeup.service.AlarmService;
 import com.wakeup.shareData.MissonViewModel;
 import com.wakeup.shareData.RepeatDateViewModel;
 import com.wakeup.shareData.SoundRepeatViewModel;
@@ -44,7 +33,6 @@ import com.wakeup.shareData.SoundRepeatViewModel;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 
 public class AlarmSetup extends AppCompatActivity implements View.OnClickListener {
@@ -66,7 +54,6 @@ public class AlarmSetup extends AppCompatActivity implements View.OnClickListene
     private AlarmModel alarmModel;
     private DatabaseManager databaseManager;
     private String allMission = "";
-
 
 
     @Override
@@ -124,23 +111,26 @@ public class AlarmSetup extends AppCompatActivity implements View.OnClickListene
     }
 
     public int[] repeatDateProcess() {
-        int[] repeatDates = new int[7];
-        String[] repeatDateText = repeatDate.getText().toString().split(", ");
-        for (String s : repeatDateText) {
-            if (s.equalsIgnoreCase("Chủ nhật")) {
-                repeatDates[0] = 1;
-            } else if (s.equalsIgnoreCase("Thứ 2")) {
-                repeatDates[1] = 1;
-            } else if (s.equalsIgnoreCase("Thứ 3")) {
-                repeatDates[2] = 1;
-            } else if (s.equalsIgnoreCase("Thứ 4")) {
-                repeatDates[3] = 1;
-            } else if (s.equalsIgnoreCase("Thứ 5")) {
-                repeatDates[4] = 1;
-            } else if (s.equalsIgnoreCase("Thứ 6")) {
-                repeatDates[5] = 1;
-            } else if (s.equalsIgnoreCase("Thứ 7")) {
-                repeatDates[6] = 1;
+        int[] repeatDates = {0, 0, 0, 0, 0, 0, 0} ;
+        if (repeatDate.getText() != "Không báo lại. >") {
+
+            String[] repeatDateText = repeatDate.getText().toString().split(", ");
+            for (String s : repeatDateText) {
+                if (s.equalsIgnoreCase("Chủ nhật")) {
+                    repeatDates[0] = 1;
+                } else if (s.equalsIgnoreCase("Thứ 2")) {
+                    repeatDates[1] = 1;
+                } else if (s.equalsIgnoreCase("Thứ 3")) {
+                    repeatDates[2] = 1;
+                } else if (s.equalsIgnoreCase("Thứ 4")) {
+                    repeatDates[3] = 1;
+                } else if (s.equalsIgnoreCase("Thứ 5")) {
+                    repeatDates[4] = 1;
+                } else if (s.equalsIgnoreCase("Thứ 6")) {
+                    repeatDates[5] = 1;
+                } else if (s.equalsIgnoreCase("Thứ 7")) {
+                    repeatDates[6] = 1;
+                }
             }
         }
         return repeatDates;
@@ -160,25 +150,33 @@ public class AlarmSetup extends AppCompatActivity implements View.OnClickListene
     }
 
     private void saveToDatabase(View view) {
-        String[] mission = allMission.split(" ");
-        String[] repeatTime = repeatMinute.getText().toString().split(" ");
+        String[] mission = new String[]{"", ""};
+        if (!allMission.equals("")) {
+            mission = allMission.split(" ");
+        }
+        String[] repeatTime;
+        if (repeatMinute.getText().equals("Không báo lại. >")) {
+            alarmModel.setRepeatTime(0);
+        } else {
+            repeatTime = repeatMinute.getText().toString().split(" ");
+            alarmModel.setRepeatTime(Integer.parseInt(repeatTime[0]));
+        }
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, hour.getValue());
         calendar.set(Calendar.MINUTE, minute.getValue());
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
-        calendar.set(Calendar.AM_PM, Calendar.PM);
+        calendar.set(Calendar.AM_PM, Calendar.AM);
         alarmModel.setTime(calendar.getTimeInMillis());
         validateTime(alarmModel);
         alarmModel.setMission(mission);
         alarmModel.setOn(1);
-        alarmModel.setRepeatTime(Integer.parseInt(repeatTime[0]));
         alarmModel.setRepeatDate(repeatDateProcess());
         alarmModel.setSound(soundProcess());
         try {
 //            databaseManager.deleteAllAlarm();
             databaseManager.addAlarm(alarmModel);
-            AlarmUtils.create(this, alarmModel);
+            AlarmUtils.create(this);
             Toast.makeText(this, "Báo thức đã được đặt thành công!", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             e.printStackTrace();
@@ -256,5 +254,6 @@ public class AlarmSetup extends AppCompatActivity implements View.OnClickListene
             openFragment(soundChoosingFragment);
         }
     }
+
 
 }

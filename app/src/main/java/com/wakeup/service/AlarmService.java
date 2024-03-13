@@ -5,42 +5,46 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.os.Handler;
+import android.os.Bundle;
 import android.os.IBinder;
-import android.os.PowerManager;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.RemoteViews;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
 import com.wakeup.R;
-import com.wakeup.database.DatabaseManager;
 import com.wakeup.model.AlarmModel;
-import com.wakeup.ui.alarm.AlarmSetup;
+import com.wakeup.model.Mission;
 import com.wakeup.ui.ring.RingSetUp;
 
-import java.util.List;
+import kotlin.reflect.KVariance;
 
 
 public class AlarmService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Notification notification = buildNotification();
-        startForeground(1, notification);
-        Log.d("Samsung", "in");
+        String missions = intent.getStringExtra("alarmMission");
+        Notification notification = buildNotification(missions);
         sendBroadcast(new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS));
+        startForeground(1, notification);
         return START_NOT_STICKY;
     }
 
-
-    private Notification buildNotification() {
+    private Notification buildNotification(String missions) {
         Intent intent = new Intent(this, RingSetUp.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("alarmMission", missions);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder((this))
                 .setSmallIcon(R.drawable.ic_notifications_black_24dp)
                 .setContentTitle("Alarm")
@@ -61,4 +65,5 @@ public class AlarmService extends Service {
     public IBinder onBind(Intent intent) {
         return null;
     }
+
 }
