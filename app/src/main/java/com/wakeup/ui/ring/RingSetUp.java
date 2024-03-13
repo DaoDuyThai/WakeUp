@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.wakeup.R;
 import com.wakeup.service.AlarmService;
+import com.wakeup.service.RingService;
 import com.wakeup.ui.mission.Typing;
 import com.wakeup.ui.mission.Math;
 
@@ -24,6 +25,9 @@ public class RingSetUp extends AppCompatActivity{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.alarm_ring);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startService(new Intent(this, RingService.class));
+        }
         configView();
         initView();
         catchEvent();

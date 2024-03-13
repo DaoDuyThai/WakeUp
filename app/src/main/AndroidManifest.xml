@@ -43,6 +43,10 @@
                 <action android:name="android.intent.action.FOREGROUND_SERVICE" />
             </intent-filter>
         </service>
+
+        <service android:name=".service.RingService"
+            android:exported="true">
+        </service>
     </application>
 
     <uses-permission android:name="android.permission.BROADCAST_CLOSE_SYSTEM_DIALOGS"
