@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.wakeup.MainActivity;
@@ -61,6 +62,9 @@ public class MainFragment extends Fragment {
         } else {
             recyclerView.setVisibility(View.GONE);
         }
+//        TextView nextAlarmTimeTextView = rootView.findViewById(R.id.next_alarm_time);
+//        String nearestAlarmCountdown = alarmAdapter.getNearestAlarmCountdown();
+//        nextAlarmTimeTextView.setText(nearestAlarmCountdown);
 
         return rootView;
     }

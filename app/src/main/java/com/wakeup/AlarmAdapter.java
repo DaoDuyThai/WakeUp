@@ -19,7 +19,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.concurrent.TimeUnit;
 
 
 public class AlarmAdapter extends RecyclerView.Adapter<AlarmViewHolder> {
@@ -40,8 +44,14 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmViewHolder> {
     public AlarmAdapter(Context context, List<AlarmModel> alarms) {
         this.context = context;
         this.alarms = alarms;
+        sortAlarms();
     }
 
+    public void setAlarms(List<AlarmModel> alarms) {
+        this.alarms = alarms;
+        sortAlarms();
+        notifyDataSetChanged();
+    }
 
     @NonNull
     @Override
@@ -83,6 +93,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmViewHolder> {
                 alarm.setOn(isChecked ? 1 : 0);
             }
         });
+
     }
 
     @Override
@@ -120,5 +131,53 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmViewHolder> {
         return stringBuilder.toString();
     }
 
+
+
+    private void sortAlarms() {
+        Collections.sort(alarms, new Comparator<AlarmModel>() {
+            @Override
+            public int compare(AlarmModel alarm1, AlarmModel alarm2) {
+                int hour1 = Integer.parseInt(alarm1.getHours());
+                int hour2 = Integer.parseInt(alarm2.getHours());
+                int minute1 = Integer.parseInt(alarm1.getMinutes());
+                int minute2 = Integer.parseInt(alarm2.getMinutes());
+
+                int hourComparison = Integer.compare(hour1, hour2);
+                if (hourComparison != 0) {
+                    return hourComparison;
+                }
+
+                int minuteComparison = Integer.compare(minute1, minute2);
+                if (minuteComparison != 0) {
+                    return minuteComparison;
+                }
+                return Integer.compare(alarm2.getIsOn(), alarm1.getIsOn());
+            }
+        });
+    }
+
+//    public String getNearestAlarmCountdown() {
+//        long currentTimeMillis = System.currentTimeMillis();
+//        long nearestAlarmTimeMillis = Long.MAX_VALUE;
+//
+//        String nearestAlarmTime = null;
+//
+//        for (AlarmModel alarm : alarms) {
+//            int hour = Integer.parseInt(alarm.getHours());
+//            int minute = Integer.parseInt(alarm.getMinutes());
+//            long alarmTimeMillis = TimeUnit.HOURS.toMillis(hour) + TimeUnit.MINUTES.toMillis(minute);
+//
+//            if (alarmTimeMillis > currentTimeMillis && alarmTimeMillis < nearestAlarmTimeMillis) {
+//                nearestAlarmTimeMillis = alarmTimeMillis;
+//                nearestAlarmTime = String.format(Locale.getDefault(), "%02d:%02d", hour, minute);
+//            }
+//        }
+//
+//        if (nearestAlarmTime == null) {
+//            return "No alarms set";
+//        } else {
+//            return nearestAlarmTime;
+//        }
+//    }
 
 }
