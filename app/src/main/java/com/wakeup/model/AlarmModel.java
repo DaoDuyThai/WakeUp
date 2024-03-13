@@ -72,6 +72,28 @@ public class AlarmModel implements Serializable {
     //add hours and minutes
     private String minutes;
     private String hours;
+    private String PmAm;
+
+    public String getPmAm() {
+        return PmAm;
+    }
+
+    public void setPmAm(String pmAm) {
+        PmAm = pmAm;
+    }
+
+    public AlarmModel(int id, long time, String[] mission, int isOn, int repeatTime, int[] repeatDate, int sound, String minutes, String hours, String pmAm) {
+        this.id = id;
+        this.time = time;
+        this.mission = mission;
+        this.isOn = isOn;
+        this.repeatTime = repeatTime;
+        this.repeatDate = repeatDate;
+        this.sound = sound;
+        this.minutes = minutes;
+        this.hours = hours;
+        PmAm = pmAm;
+    }
 
     public AlarmModel() {
     }

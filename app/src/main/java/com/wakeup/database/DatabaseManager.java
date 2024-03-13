@@ -32,7 +32,7 @@ public class DatabaseManager {
                 repeatDate += ",";
             }
         }
-        db.execSQL("INSERT INTO alarm (time, mission, isOn, repeatTime, repeatDate, sound, hours, minutes) VALUES ('" + alarm.getTime() + "', '" + mission + "', '" + alarm.isOn() + "', '" + alarm.getRepeatTime() + "', '" + repeatDate + "', '" + alarm.getSound() + "','" + alarm.getHours() + "','" + alarm.getMinutes() + "')");
+        db.execSQL("INSERT INTO alarm (time, mission, isOn, repeatTime, repeatDate, sound, hours, minutes, pmam) VALUES ('" + alarm.getTime() + "', '" + mission + "', '" + alarm.isOn() + "', '" + alarm.getRepeatTime() + "', '" + repeatDate + "', '" + alarm.getSound() + "','" + alarm.getHours() + "','" + alarm.getMinutes() + "','" + alarm.getPmAm() +"')");
         db.close();
     }
 
@@ -54,6 +54,8 @@ public class DatabaseManager {
                 alarm.setMission(cursor.getString(2).split(","));
                 alarm.setOn(cursor.getInt(3) == 1 ? 1 : 0);
                 alarm.setRepeatTime(cursor.getInt(4));
+                alarm.setHours(cursor.getString(7));
+                alarm.setMinutes(cursor.getString(8));
                 String[] repeatDate = cursor.getString(5).split(",");
                 int[] repeatDateInt = new int[repeatDate.length];
                 for (int i = 0; i < repeatDate.length; i++) {

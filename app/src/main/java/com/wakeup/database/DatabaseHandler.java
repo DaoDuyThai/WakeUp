@@ -19,6 +19,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     private final String  HOURS = "hours";
     private final String MINUTES = "minutes";
+    private final String PMAM = "PmAm";
 
 
     public DatabaseHandler(Context context) {
@@ -27,7 +28,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createDatabase = String.format("CREATE TABLE %s(%s INTEGER PRIMARY KEY, %s INTEGER, %s INTEGER, %s TEXT, %s INTEGER,%s TEXT, %s INTEGER, %s TEXT, %s TEXT)", TABLE_NAME, ID, TIME, MISSION, IsON, REPEAT_TIME, REPEAT_DATE, SOUND, HOURS, MINUTES);
+        String createDatabase = String.format("CREATE TABLE %s(%s INTEGER PRIMARY KEY, %s INTEGER, %s INTEGER, %s TEXT, %s INTEGER,%s TEXT, %s INTEGER, %s TEXT, %s TEXT, %s TEXT)", TABLE_NAME, ID, TIME, MISSION, IsON, REPEAT_TIME, REPEAT_DATE, SOUND, HOURS, MINUTES, PMAM);
         db.execSQL(createDatabase);
     }
 
