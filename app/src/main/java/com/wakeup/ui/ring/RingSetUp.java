@@ -1,62 +1,90 @@
 package com.wakeup.ui.ring;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.PowerManager;
+import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.wakeup.R;
-import com.wakeup.model.AlarmModel;
+import com.wakeup.service.AlarmService;
+import com.wakeup.service.RingService;
+import com.wakeup.ui.mission.Typing;
+import com.wakeup.ui.mission.Math;
 
-public class RingSetUp extends AppCompatActivity {
+public class RingSetUp extends AppCompatActivity{
     private Button button;
+    private Intent intent;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.alarm_ring);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startService(new Intent(this, RingService.class));
+        }
+        configView();
         initView();
         catchEvent();
-        configView();
 
     }
 
     private void catchEvent() {
-        button.setOnClickListener(this::goToMission);
-    }
-
-    private void goToMission(View view) {
-
+        button.setOnClickListener(this::changeToMission);
     }
 
     private void initView() {
-        button = findViewById(R.id.stop_button);
+        button = findViewById(R.id.start_button);
+        button.requestFocus();
+        button.setEnabled(true);
     }
 
     private void configView() {
-//        PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
-//        PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "MyWakelock");
-//        wakeLock.acquire();
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
             setTurnScreenOn(true);
             setShowWhenLocked(true);
         }
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
-                | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
-                | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
+        final Window window = getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
                 | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
-                | WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON
-                | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
-                | WindowManager.LayoutParams.FLAG_FULLSCREEN
-                | WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY);
-//        wakeLock.release();
+                | WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON);
+    }
+
+
+    public void changeToMission(View v) {
+        stopService(new Intent(this, AlarmService.class));
+        String missions = getIntent().getStringExtra("alarmMission");
+        String[] mission = missions.split(" ");
+        Log.d("Mission", mission[0] + "");
+        switch (mission[0]) {
+            case "Math":
+                intent = new Intent(this, Math.class);
+                if (mission.length > 1) {
+                    intent.putExtra("alarmMission", mission[1]);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                } else if(mission.length == 1){
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                }
+                break;
+            case "Memory":
+                intent = new Intent(this, Typing.class);
+                if (mission.length > 1) {
+                    intent.putExtra("alarmMission", mission[1]);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                } else if(mission.length == 1){
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                }
+                break;
+        }
     }
 }
