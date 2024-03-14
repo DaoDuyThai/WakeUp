@@ -170,16 +170,15 @@
             />
 
         <TextView
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:text="Tiếng kèn quân đội. >"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tab3_layout1"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:textColor="@color/white"
             android:id="@+id/soundChoosing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10pt"
-            />
+            android:text="Báo thức quân đội. >"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tab3_layout1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

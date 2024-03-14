@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.wakeup.AlarmViewHolder;
+import com.wakeup.alarm.AlarmUtils;
+import com.wakeup.database.DatabaseManager;
 import com.wakeup.model.AlarmModel;
 import com.wakeup.R;
 
@@ -30,6 +32,8 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmViewHolder> {
     private Context context;
     private List<AlarmModel> alarms;
 
+    private DatabaseManager databaseManager;
+
     private String[] daysOfWeek = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
     private static final Map<String, String> missionMap;
 
@@ -45,6 +49,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmViewHolder> {
     public AlarmAdapter(Context context, List<AlarmModel> alarms) {
         this.context = context;
         this.alarms = alarms;
+        databaseManager = new DatabaseManager(context);
         sortAlarms();
     }
 
@@ -63,35 +68,39 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull AlarmViewHolder holder, int position) {
-        AlarmModel alarm = alarms.get(position);
-//        if(alarm != null) {
+        try {
+            AlarmModel alarm = alarms.get(position);
+//            if (alarm != null) {
 //        holder.itemView.setId(alarm.getId());
-        String hours = alarm.getHours();
-        String minutes = alarm.getMinutes();
-        if (hours.length() == 1) {
-            hours = "0" + hours;
-        }
-        if (minutes.length() == 1) {
-            minutes = "0" + minutes;
-        }
-        holder.time_view.setText(hours + ":" + minutes);
-        String repeatDateString = convertRepeatDateToString(alarm.getRepeatDate());
-        holder.repeat_date_view.setText(repeatDateString);
-        String[] missionArray = alarm.getMission();
-        String missionString = convertMissionToString(missionArray);
-        holder.mission_view.setText(missionString);
-        holder.is_on_button_view.setChecked(alarm.isOn() == 1);
+                String hours = alarm.getHours();
+                String minutes = alarm.getMinutes();
+                if (hours.length() == 1) {
+                    hours = "0" + hours;
+                }
+                if (minutes.length() == 1) {
+                    minutes = "0" + minutes;
+                }
+                holder.time_view.setText(hours + ":" + minutes);
+                String repeatDateString = convertRepeatDateToString(alarm.getRepeatDate());
+                holder.repeat_date_view.setText(repeatDateString);
+                String[] missionArray = alarm.getMission();
+                String missionString = convertMissionToString(missionArray);
+                holder.mission_view.setText(missionString);
+                holder.is_on_button_view.setChecked(alarm.isOn() == 1);
 
-        holder.is_on_button_view.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                alarm.setOn(isChecked ? 1 : 0);
+                holder.is_on_button_view.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        alarm.setOn(isChecked ? 1 : 0);
+                        databaseManager.updateAlarm(alarm);
+                        AlarmUtils.create(context);
+                    }
+                });
+            } catch(NullPointerException nullPointerException){
+                nullPointerException.printStackTrace();
             }
-        });
-    }
+        }
 
-
-//    }
 
     @Override
     public int getItemCount() {

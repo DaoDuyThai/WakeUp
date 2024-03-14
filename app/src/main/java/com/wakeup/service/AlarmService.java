@@ -42,7 +42,8 @@ public class AlarmService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         String missions = intent.getStringExtra("alarmMission");
-        Notification notification = buildNotification(missions);
+        String sound = intent.getStringExtra("alarmSound");
+        Notification notification = buildNotification(missions, sound);
 //        sendBroadcast(new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS));
         if (Build.VERSION.SDK_INT >= 34) {
             startForeground(1, notification,
@@ -54,12 +55,13 @@ public class AlarmService extends Service {
         return START_NOT_STICKY;
     }
 
-    private Notification buildNotification(String missions) {
+    private Notification buildNotification(String missions, String sound) {
         Intent intent = new Intent(this, RingSetUp.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra("alarmMission", missions);
+        intent.putExtra("alarmSound", sound);
         PendingIntent pendingIntent;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
             pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
@@ -68,9 +70,9 @@ public class AlarmService extends Service {
         }
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder((this))
-                .setSmallIcon(R.drawable.plus)
-                .setContentTitle("Alarm")
-                .setContentText("Alarm is ringing")
+                .setSmallIcon(R.drawable.logo)
+                .setContentTitle("Báo thức của bạn đang chạy")
+                .setContentText("Bạn có một báo thức đang chạy")
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
                 .setFullScreenIntent(pendingIntent, true);

@@ -16,7 +16,7 @@ public class RingService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        mediaPlayer = MediaPlayer.create(this, R.raw.bao_thuc_quan_doi);
+
     }
 
     @Override
@@ -30,7 +30,17 @@ public class RingService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        // Khởi động Service
+        String sound = intent.getStringExtra("alarmSound");
+        if(sound.equals("1")){
+            mediaPlayer = MediaPlayer.create(this, R.raw.tinh_ngu_di_em);
+        } else if (sound.equals("2")) {
+            mediaPlayer = MediaPlayer.create(this, R.raw.bao_thuc_quan_doi);
+        } else if (sound.equals("3")) {
+            mediaPlayer = MediaPlayer.create(this, R.raw.day_di_ong_chau_oi);
+        } else {
+            mediaPlayer = MediaPlayer.create(this, R.raw.bao_thuc_quan_doi);
+        }
+        // Khởi động Service`
         new Thread(new Runnable() {
             @Override
             public void run() {

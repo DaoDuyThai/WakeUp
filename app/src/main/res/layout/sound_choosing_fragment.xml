@@ -15,7 +15,7 @@
             android:id="@+id/sound1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tiếng chó sủa lofi."
+            android:text="Báo thức dậy đi em ơi không ai cứu được em đâu."
             android:focusedByDefault="true"
             android:textColor="@color/white"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -32,7 +32,7 @@
             android:id="@+id/sound3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Vật lí đại cương cho sinh viên lofi"
+            android:text="Báo thức dậy đi ông cháu ơi."
             android:textColor="@color/white"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

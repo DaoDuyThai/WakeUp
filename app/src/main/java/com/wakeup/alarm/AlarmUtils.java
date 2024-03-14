@@ -37,7 +37,7 @@ public class AlarmUtils {
                 }
                 Intent intent = new Intent(context, AlarmService.class);
                 intent.putExtra("alarmMission", missions);
-                intent.putExtra("alarmSound", alarmModel.getSound());
+                intent.putExtra("alarmSound", alarmModel.getSound()+"");
                 if (alarmModel.getTime() > System.currentTimeMillis()) {
                     PendingIntent pendingIntent;
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {

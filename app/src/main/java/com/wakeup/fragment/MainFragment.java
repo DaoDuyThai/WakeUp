@@ -29,7 +29,7 @@ public class MainFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private AlarmAdapter alarmAdapter;
-    private List<AlarmModel> alarms = new ArrayList<>();
+    private List<AlarmModel> alarms;
 
     private FloatingActionButton addButton;
 

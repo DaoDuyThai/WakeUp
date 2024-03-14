@@ -81,6 +81,13 @@ public class AlarmSetup extends AppCompatActivity implements View.OnClickListene
         repeatDate.setOnClickListener(this::onClick);
         repeatMinute.setOnClickListener(this::onClick);
         soundChoosing.setOnClickListener(this::onClick);
+        inDay.setOnValueChangedListener((numberPicker, i, i1) -> {
+            if (i1 == 0) {
+                alarmModel.setPmAm("AM");
+            } else {
+                alarmModel.setPmAm("PM");
+            }
+        });
         saveButton.setOnClickListener(this::saveToDatabase);
         repeatDateViewModel.getText().observe(this, new Observer<String>() {
             @Override
@@ -141,11 +148,11 @@ public class AlarmSetup extends AppCompatActivity implements View.OnClickListene
     public int soundProcess() {
         String sound = soundChoosing.getText().toString();
         switch (sound) {
-            case "Tiếng chó sủa lofi.":
+            case "Báo thức dậy đi em ơi không ai cứu được em đâu.":
                 return 1;
             case "Báo thức quân đội.":
                 return 2;
-            case "Vật lí đại cương cho sinh viên lofi":
+            case "Báo thức dậy đi ông cháu ơi.":
                 return 3;
         }
         return 0;
@@ -168,7 +175,11 @@ public class AlarmSetup extends AppCompatActivity implements View.OnClickListene
         calendar.set(Calendar.MINUTE, minute.getValue());
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
-        calendar.set(Calendar.AM_PM, Calendar.PM);
+        if(alarmModel.getPmAm().equals("AM")){
+            calendar.set(Calendar.AM_PM, Calendar.AM);
+        } else {
+            calendar.set(Calendar.AM_PM, Calendar.PM);
+        }
         alarmModel.setTime(calendar.getTimeInMillis());
         validateTime(alarmModel);
         alarmModel.setHours(hour.getValue()+"");
@@ -181,6 +192,7 @@ public class AlarmSetup extends AppCompatActivity implements View.OnClickListene
             databaseManager.addAlarm(alarmModel);
             AlarmUtils.create(this);
             Toast.makeText(this, "Báo thức đã được đặt thành công!", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, MainActivity.class));
         } catch (NumberFormatException numberFormatException){
             databaseManager.deleteAllAlarm();
         } catch (Exception e) {
@@ -203,6 +215,11 @@ public class AlarmSetup extends AppCompatActivity implements View.OnClickListene
         Calendar calendar = Calendar.getInstance();
         hour.setValue(calendar.get(Calendar.HOUR));
         minute.setValue(calendar.get(Calendar.MINUTE));
+        inDay.setMinValue(0);
+        inDay.setMaxValue(1);
+        inDay.setValue(calendar.get(Calendar.AM_PM) == 0 ? 0 : 1);
+        alarmModel.setPmAm(inDayData[inDay.getValue()]);
+//        Toast.makeText(this, "AM_PM"+alarmModel.getPmAm(), Toast.LENGTH_SHORT).show();
         inDay.setDisplayedValues(inDayData);
         inDay.setValue(calendar.get(Calendar.AM_PM));
     }

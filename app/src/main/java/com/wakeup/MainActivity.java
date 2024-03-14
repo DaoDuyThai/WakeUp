@@ -15,18 +15,18 @@ import com.wakeup.fragment.TimerFragment;
 
 public class MainActivity extends AppCompatActivity {
 
-    BottomNavigationView bottomNavigationView;
+    private BottomNavigationView bottomNavigationView;
 
-    MainFragment mainFragment = new MainFragment();
-    GmtFragment gmtFragment = new GmtFragment();
-    StopWatchFragment stopWatchFragment = new StopWatchFragment();
-    TimerFragment timerFragment = new TimerFragment();
+    private MainFragment mainFragment;
+    private GmtFragment gmtFragment;
+    private StopWatchFragment stopWatchFragment;
+    private TimerFragment timerFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        initView();
         bottomNavigationView = findViewById(R.id.bottom_navigation_view);
         getSupportFragmentManager().beginTransaction().replace(R.id.container, mainFragment).commit();
 
@@ -49,6 +49,13 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    private void initView() {
+        mainFragment = new MainFragment();
+        gmtFragment = new GmtFragment();
+        stopWatchFragment = new StopWatchFragment();
+        timerFragment = new TimerFragment();
     }
 
 }

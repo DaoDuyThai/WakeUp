@@ -27,7 +27,10 @@ public class        RingSetUp extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.alarm_ring);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            startService(new Intent(this, RingService.class));
+            String sound = getIntent().getStringExtra("alarmSound");
+            Intent intent = new Intent(this, RingService.class);
+            intent.putExtra("alarmSound", sound);
+            startService(intent);
         }
         configView();
         initView();
@@ -62,7 +65,6 @@ public class        RingSetUp extends AppCompatActivity{
         stopService(new Intent(this, AlarmService.class));
         String missions = getIntent().getStringExtra("alarmMission");
         String[] mission = missions.split(" ");
-        Log.d("Mission", mission[0] + "");
         try {
             switch (mission[0]) {
                 case "Math":
@@ -95,11 +97,13 @@ public class        RingSetUp extends AppCompatActivity{
                 default:
                     intent = new Intent(this, MainActivity.class);
                     startActivity(intent);
+                    stopService(new Intent(this, RingService.class));
                     break;
             }
         } catch (NullPointerException nullPointerException){
             intent = new Intent(this, MainActivity.class);
             startActivity(intent);
+            stopService(new Intent(this, RingService.class));
         }
     }
 }
