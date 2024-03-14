@@ -168,7 +168,7 @@ public class AlarmSetup extends AppCompatActivity implements View.OnClickListene
         calendar.set(Calendar.MINUTE, minute.getValue());
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
-        calendar.set(Calendar.AM_PM, Calendar.PM);
+        calendar.set(Calendar.AM_PM, Calendar.AM);
         alarmModel.setTime(calendar.getTimeInMillis());
         validateTime(alarmModel);
         alarmModel.setHours(hour.getValue()+"");
@@ -178,10 +178,11 @@ public class AlarmSetup extends AppCompatActivity implements View.OnClickListene
         alarmModel.setRepeatDate(repeatDateProcess());
         alarmModel.setSound(soundProcess());
         try {
-//            databaseManager.droptable();
             databaseManager.addAlarm(alarmModel);
             AlarmUtils.create(this);
             Toast.makeText(this, "Báo thức đã được đặt thành công!", Toast.LENGTH_SHORT).show();
+        } catch (NumberFormatException numberFormatException){
+            databaseManager.deleteAllAlarm();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -199,7 +200,11 @@ public class AlarmSetup extends AppCompatActivity implements View.OnClickListene
     private void bindData() {
         setUpNumberPicker(hour, 1, 12);
         setUpNumberPicker(minute, 0, 59);
+        Calendar calendar = Calendar.getInstance();
+        hour.setValue(calendar.get(Calendar.HOUR));
+        minute.setValue(calendar.get(Calendar.MINUTE));
         inDay.setDisplayedValues(inDayData);
+        inDay.setValue(calendar.get(Calendar.AM_PM));
     }
 
     private void initView() {

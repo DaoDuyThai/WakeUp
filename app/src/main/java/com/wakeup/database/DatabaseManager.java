@@ -20,19 +20,25 @@ public class DatabaseManager {
         SQLiteDatabase db = databaseHandler.getWritableDatabase();
         String mission = "";
         String repeatDate = "";
-        for (int i = 0; i < alarm.getMission().length; i++) {
-            mission += alarm.getMission()[i];
-            if (i != alarm.getMission().length - 1) {
-                mission += ",";
+        if(alarm.getMission() != null) {
+            for (int i = 0; i < alarm.getMission().length; i++) {
+                mission += alarm.getMission()[i];
+                if (i != alarm.getMission().length - 1) {
+                    mission += ",";
+                }
             }
         }
-        for (int i = 0; i < alarm.getRepeatDate().length; i++) {
-            repeatDate += alarm.getRepeatDate()[i];
-            if (i != alarm.getRepeatDate().length - 1) {
-                repeatDate += ",";
+        if(alarm.getRepeatDate() != null) {
+            for (int i = 0; i < alarm.getRepeatDate().length; i++) {
+                repeatDate += alarm.getRepeatDate()[i];
+                if (i != alarm.getRepeatDate().length - 1) {
+                    repeatDate += ",";
+                }
             }
         }
-        db.execSQL("INSERT INTO alarm (time, mission, isOn, repeatTime, repeatDate, sound, hours, minutes, pmam) VALUES ('" + alarm.getTime() + "', '" + mission + "', '" + alarm.isOn() + "', '" + alarm.getRepeatTime() + "', '" + repeatDate + "', '" + alarm.getSound() + "','" + alarm.getHours() + "','" + alarm.getMinutes() + "','" + alarm.getPmAm() +"')");
+        if(alarm != null){
+            db.execSQL("INSERT INTO alarm (time, mission, isOn, repeatTime, repeatDate, sound) VALUES ('" + alarm.getTime() + "', '" + mission + "', '" + alarm.isOn() + "', '" + alarm.getRepeatTime() + "', '" + repeatDate + "', '" + alarm.getSound() + "')");
+        }
         db.close();
     }
 
