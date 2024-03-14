@@ -17,7 +17,7 @@ import com.wakeup.service.RingService;
 import com.wakeup.ui.mission.Typing;
 import com.wakeup.ui.mission.Math;
 
-public class RingSetUp extends AppCompatActivity{
+public class        RingSetUp extends AppCompatActivity{
     private Button button;
     private Intent intent;
 
