@@ -11,6 +11,7 @@ import android.widget.Button;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.wakeup.MainActivity;
 import com.wakeup.R;
 import com.wakeup.service.AlarmService;
 import com.wakeup.service.RingService;
@@ -62,34 +63,43 @@ public class        RingSetUp extends AppCompatActivity{
         String missions = getIntent().getStringExtra("alarmMission");
         String[] mission = missions.split(" ");
         Log.d("Mission", mission[0] + "");
-        switch (mission[0]) {
-            case "Math":
-                intent = new Intent(this, Math.class);
-                if (mission.length > 1) {
-                    intent.putExtra("alarmMission", mission[1]);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
-                } else if(mission.length == 1){
-                    if(mission[0].equals("Math")){
-                        intent = new Intent(this, Math.class);
-                    } else if(mission[0].equals("Typing")){
-                        intent = new Intent(this, Typing.class);
+        try {
+            switch (mission[0]) {
+                case "Math":
+                    intent = new Intent(this, Math.class);
+                    if (mission.length > 1) {
+                        intent.putExtra("alarmMission", mission[1]);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                    } else if(mission.length == 1){
+                        if(mission[0].equals("Math")){
+                            intent = new Intent(this, Math.class);
+                        } else if(mission[0].equals("Typing")){
+                            intent = new Intent(this, Typing.class);
+                        }
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
                     }
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    break;
+                case "Typing":
+                    intent = new Intent(this, Typing.class);
+                    if (mission.length > 1) {
+                        intent.putExtra("alarmMission", mission[1]);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                    } else if(mission.length == 1){
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                    }
+                    break;
+                default:
+                    intent = new Intent(this, MainActivity.class);
                     startActivity(intent);
-                }
-                break;
-            case "Typing":
-                intent = new Intent(this, Typing.class);
-                if (mission.length > 1) {
-                    intent.putExtra("alarmMission", mission[1]);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
-                } else if(mission.length == 1){
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
-                }
-                break;
+                    break;
+            }
+        } catch (NullPointerException nullPointerException){
+            intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
         }
     }
 }

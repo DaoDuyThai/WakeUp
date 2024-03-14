@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.wakeup.MainActivity;
 import com.wakeup.R;
 import com.wakeup.service.RingService;
 
@@ -60,9 +61,16 @@ public class Math extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void changePage() {
-        if(score > 3){
-            Intent intent = new Intent(this, Typing.class);
-            startActivity(intent);
+        if(score >= 3){
+            String nextMission = getIntent().getStringExtra("alarmMission");
+            if(nextMission != null && nextMission.equalsIgnoreCase("Typing")) {
+                Intent intent = new Intent(this, Typing.class);
+                startActivity(intent);
+            } else {
+                stopService(new Intent(this, RingService.class));
+                startActivity(new Intent(this, MainActivity.class));
+            }
+
         }
     }
 

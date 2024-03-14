@@ -1,5 +1,11 @@
-'Thiên hạ'-'i/n/T/ê/ạ/h/h'
-'Tệ hại'-'h/i/T/ạ/ệ'
 'Siêu nhân'-'n/n/â/u/i/h/ê/S'
-'Ngoại lệ'-'i/g/ệ/ạ/N/l/o'
-'Tinh tế'-'T/n/i/h/ế/t'
+'Ninja'-'n/i/N/j/a'
+'Quân binh'-'Q/u/i/â/b/n/n/h'
+'Bông Sen'-'B/e/n/n/S/ô/g'
+'Tây Nguyên'-'T/ê/y/N/g/â/y/u/n'
+'Thanh Hoa'-'T/h/h/H/a/n/o/a'
+'Sơn La'-'S/L/n/ơ/a'
+'Lai Châu'-'L/u/â/C/h/i/a'
+'Cô Tô'-'C/ô/ô/T'
+
+

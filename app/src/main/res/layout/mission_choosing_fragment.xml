@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -35,53 +36,30 @@
         android:textStyle="bold"
         android:id="@+id/heading"
         />
+
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/heading"
-        android:padding="5pt"
-        android:id="@+id/memory_mission"
-        >
-        <ImageView
-            android:layout_height="20pt"
-            android:layout_width="20pt"
-            android:src="@drawable/memmory_icon"
-            android:layout_gravity="right"
-            android:layout_marginRight="5pt"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Khả năng ghi nhớ"
-            android:textStyle="bold"
-            android:layout_gravity="center"
-            android:textColor="@color/white"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/memory_mission"
-        android:padding="5pt"
         android:id="@+id/typing_mission"
-        >
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5pt"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+       app:layout_constraintTop_toBottomOf="@id/heading">
+
         <ImageView
-            android:layout_height="20pt"
             android:layout_width="20pt"
-            android:src="@drawable/typing_icon"
+            android:layout_height="20pt"
             android:layout_gravity="right"
             android:layout_marginRight="5pt"
-            />
+            android:src="@drawable/typing_icon" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Đánh máy"
-            android:textStyle="bold"
             android:layout_gravity="center"
-            android:textColor="@color/white"/>
+            android:text="Đánh máy"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"

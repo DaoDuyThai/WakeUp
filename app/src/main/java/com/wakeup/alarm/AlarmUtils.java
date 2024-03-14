@@ -30,13 +30,14 @@ public class AlarmUtils {
         List<AlarmModel> models = databaseManager.getAlarms();
         for (AlarmModel alarmModel : models) {
             String missions = "";
-            if (alarmModel.isOn() == 1) {
+            if ( alarmModel != null && alarmModel.isOn() == 1) {
                 Log.d("AlarmTime", alarmModel.getId() + "");
                 for (String mission : alarmModel.getMission()) {
                     missions += mission + " ";
                 }
                 Intent intent = new Intent(context, AlarmService.class);
                 intent.putExtra("alarmMission", missions);
+                intent.putExtra("alarmSound", alarmModel.getSound());
                 if (alarmModel.getTime() > System.currentTimeMillis()) {
                     PendingIntent pendingIntent;
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
@@ -52,7 +53,7 @@ public class AlarmUtils {
                     databaseManager.updateAlarm(alarmModel);
                 }
 
-            } else if (alarmModel.isOn() == 0) {
+            } else if (alarmModel != null && alarmModel.isOn() == 0) {
                 Intent intent1 = new Intent(context, AlarmService.class);
                 PendingIntent pendingIntent = PendingIntent.getService(context, alarmModel.getId(), intent1, PendingIntent.FLAG_UPDATE_CURRENT);
                 alarmManager.cancel(pendingIntent);

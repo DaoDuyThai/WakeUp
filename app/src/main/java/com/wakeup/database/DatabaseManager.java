@@ -3,6 +3,7 @@ package com.wakeup.database;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.wakeup.model.AlarmModel;
 
@@ -37,7 +38,7 @@ public class DatabaseManager {
             }
         }
         if(alarm != null){
-            db.execSQL("INSERT INTO alarm (time, mission, isOn, repeatTime, repeatDate, sound) VALUES ('" + alarm.getTime() + "', '" + mission + "', '" + alarm.isOn() + "', '" + alarm.getRepeatTime() + "', '" + repeatDate + "', '" + alarm.getSound() + "')");
+            db.execSQL("INSERT INTO alarm (time, mission, isOn, repeatTime, repeatDate, sound, hours, minutes, PmAm) VALUES ('" + alarm.getTime() + "', '" + mission + "', '" + alarm.isOn() + "', '" + alarm.getRepeatTime() + "', '" + repeatDate + "', '" + alarm.getSound() + "', '" + alarm.getHours() + "', '"  + alarm.getMinutes() + "', '" + alarm.getPmAm() +"')");
         }
         db.close();
     }
@@ -55,20 +56,26 @@ public class DatabaseManager {
         if (cursor != null && cursor.moveToFirst()) {
             do {
                 AlarmModel alarm = new AlarmModel();
-                alarm.setId(cursor.getInt(0));
-                alarm.setTime(cursor.getLong(1));
-                alarm.setMission(cursor.getString(2).split(","));
-                alarm.setOn(cursor.getInt(3) == 1 ? 1 : 0);
-                alarm.setRepeatTime(cursor.getInt(4));
-                alarm.setHours(cursor.getString(7));
-                alarm.setMinutes(cursor.getString(8));
-                String[] repeatDate = cursor.getString(5).split(",");
-                int[] repeatDateInt = new int[repeatDate.length];
-                for (int i = 0; i < repeatDate.length; i++) {
-                    repeatDateInt[i] = Integer.parseInt(repeatDate[i]);
+                try {
+                    alarm.setId(cursor.getInt(0));
+                    alarm.setTime(cursor.getLong(1));
+                    alarm.setMission(cursor.getString(2).split(","));
+                    alarm.setOn(cursor.getInt(3) == 1 ? 1 : 0);
+                    alarm.setRepeatTime(cursor.getInt(4));
+                    alarm.setHours(cursor.getString(7));
+                    alarm.setMinutes(cursor.getString(8));
+                    String[] repeatDate = cursor.getString(5).split(",");
+                    int[] repeatDateInt = new int[repeatDate.length];
+                    for (int i = 0; i < repeatDate.length; i++) {
+                        repeatDateInt[i] = Integer.parseInt(repeatDate[i]);
+                    }
+                    alarm.setRepeatDate(repeatDateInt);
+                    alarm.setSound(cursor.getInt(6));
+
+                } catch (NumberFormatException e) {
+                    alarm = null;
+                    Log.e("DatabaseManager", "Error while parsing data from database");
                 }
-                alarm.setRepeatDate(repeatDateInt);
-                alarm.setSound(cursor.getInt(6));
                 alarms.add(alarm);
             } while (cursor.moveToNext());
 

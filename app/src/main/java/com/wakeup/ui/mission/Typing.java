@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.wakeup.MainActivity;
 import com.wakeup.R;
 import com.wakeup.service.RingService;
 
@@ -25,7 +26,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
@@ -37,6 +40,8 @@ public class Typing extends AppCompatActivity implements View.OnClickListener {
     private EditText editText;
     private Button button;
     private int total = 0;
+
+    private static String rightAnswer;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,7 +70,7 @@ public class Typing extends AppCompatActivity implements View.OnClickListener {
             int total = keys.size();
             int index = random.nextInt(total);
             question.setText(map.get(keys.get(index)));
-            Log.d("keyalarm", keys.get(index));
+            rightAnswer = keys.get(index);
         } catch (IndexOutOfBoundsException e) {
             e.printStackTrace();
         }
@@ -74,12 +79,14 @@ public class Typing extends AppCompatActivity implements View.OnClickListener {
     private void getDataFromFile() {
         try {
             InputStream inputStream = getResources().openRawResource(R.raw.data);
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF8"));
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 String[] elements = line.split("-");
-                map.put(elements[0], elements[1]);
-                keys.add(elements[0]);
+                if(elements.length == 2) {
+                    map.put(elements[0], elements[1]);
+                    keys.add(elements[0]);
+                }
             }
             bufferedReader.close();
             inputStream.close();
@@ -89,6 +96,20 @@ public class Typing extends AppCompatActivity implements View.OnClickListener {
             throw new RuntimeException(e);
         } catch (IndexOutOfBoundsException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    private void changePage() {
+        if(total >= 3){
+            String nextMission = getIntent().getStringExtra("alarmMission");
+            if(nextMission != null && nextMission.equalsIgnoreCase("Math")) {
+                Intent intent = new Intent(this, Math.class);
+                startActivity(intent);
+            } else {
+                stopService(new Intent(this, RingService.class));
+                startActivity(new Intent(this, MainActivity.class));
+            }
+
         }
     }
 
@@ -108,20 +129,20 @@ public class Typing extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.enter_button) {
-//
+            String input = "'"+editText.getText().toString().trim()+"'";
             try {
-                if (keys.contains("'" + editText.getText().toString() + "'")) {
+                if (rightAnswer.toString().compareTo(input.toString()) == 0) {
+                    editText.setText("");
                     Toast.makeText(this, "Chính xác!", Toast.LENGTH_SHORT).show();
                     total++;
                     if (total < 3) {
                         bindDataToView();
                     } else {
-                        stopService(new Intent(this, RingService.class));
+                        changePage();
                     }
                 } else {
-                    Toast.makeText(this, "Đã sai!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Đã sai! ", Toast.LENGTH_SHORT).show();
                 }
-//
             } catch (Exception e) {
                 e.printStackTrace();
             }

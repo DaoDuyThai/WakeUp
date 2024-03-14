@@ -25,7 +25,7 @@ public class MissionChoosingFragment extends Fragment implements View.OnClickLis
 
     private AlarmSetup alarmSetup;
 
-    private LinearLayout memoryMission, typingMission, mathMission;
+    private LinearLayout typingMission, mathMission;
 
     private ImageView exitIcon;
     private MissonViewModel missonViewModel;
@@ -55,13 +55,11 @@ public class MissionChoosingFragment extends Fragment implements View.OnClickLis
     private void catchEvent() {
         exitIcon.setOnClickListener(this::onClick);
         mathMission.setOnClickListener(this::onClick);
-        memoryMission.setOnClickListener(this::onClick);
         typingMission.setOnClickListener(this::onClick);
     }
 
     private void initView(View view) {
         exitIcon = view.findViewById(R.id.exit);
-        memoryMission = view.findViewById(R.id.memory_mission);
         typingMission = view.findViewById(R.id.typing_mission);
         mathMission = view.findViewById(R.id.math_mission);
         alarmSetup = (AlarmSetup) getActivity();
@@ -76,8 +74,6 @@ public class MissionChoosingFragment extends Fragment implements View.OnClickLis
             FragmentTransaction ft = fm.beginTransaction();
             ft.remove(this);
             ft.commit();
-        } else if (v.getId() == R.id.memory_mission) {
-            missonViewModel.setText("Memory");
         } else if (v.getId() == R.id.typing_mission) {
             missonViewModel.setText("Typing");
         } else if (v.getId() == R.id.math_mission) {

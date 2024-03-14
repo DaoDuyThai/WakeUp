@@ -32,9 +32,10 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmViewHolder> {
 
     private String[] daysOfWeek = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
     private static final Map<String, String> missionMap;
+
     static {
         missionMap = new HashMap<>();
-        missionMap.put("Typing", "Báo thức");
+        missionMap.put("Typing", "Đánh máy");
         missionMap.put("Memory", "Giải toán");
         missionMap.put("Math", "Ghi nhớ");
 
@@ -63,11 +64,8 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull AlarmViewHolder holder, int position) {
         AlarmModel alarm = alarms.get(position);
-
-        holder.itemView.setId(alarm.getId());
-
-//        holder.time_view.setText(String.valueOf(alarm.getTime()));
-//        holder.time_view.setText(alarm.getExactTime(alarm.getTime()));
+//        if(alarm != null) {
+//        holder.itemView.setId(alarm.getId());
         String hours = alarm.getHours();
         String minutes = alarm.getMinutes();
         if (hours.length() == 1) {
@@ -78,10 +76,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmViewHolder> {
         }
         holder.time_view.setText(hours + ":" + minutes);
         String repeatDateString = convertRepeatDateToString(alarm.getRepeatDate());
-//        holder.repeat_date_view.setText(Arrays.toString(alarm.getRepeatDate()));
         holder.repeat_date_view.setText(repeatDateString);
-
-//        holder.mission_view.setText(Arrays.toString(alarm.getMission()));
         String[] missionArray = alarm.getMission();
         String missionString = convertMissionToString(missionArray);
         holder.mission_view.setText(missionString);
@@ -93,13 +88,16 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmViewHolder> {
                 alarm.setOn(isChecked ? 1 : 0);
             }
         });
-
     }
+
+
+//    }
 
     @Override
     public int getItemCount() {
         return alarms.size();
     }
+
     public static String convertRepeatDateToString(int[] repeatDate) {
         String[] daysOfWeek = {"CN", "T2", "T3", "T4", "T5", "T6", "T7"};
         StringBuilder stringBuilder = new StringBuilder();
@@ -132,52 +130,34 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmViewHolder> {
     }
 
 
-
     private void sortAlarms() {
-        Collections.sort(alarms, new Comparator<AlarmModel>() {
-            @Override
-            public int compare(AlarmModel alarm1, AlarmModel alarm2) {
-                int hour1 = Integer.parseInt(alarm1.getHours());
-                int hour2 = Integer.parseInt(alarm2.getHours());
-                int minute1 = Integer.parseInt(alarm1.getMinutes());
-                int minute2 = Integer.parseInt(alarm2.getMinutes());
+        try {
+            if (alarms.size() > 1) {
+                Collections.sort(alarms, new Comparator<AlarmModel>() {
+                    @Override
+                    public int compare(AlarmModel alarm1, AlarmModel alarm2) {
+                        int hour1 = Integer.parseInt(alarm1.getHours());
+                        int hour2 = Integer.parseInt(alarm2.getHours());
+                        int minute1 = Integer.parseInt(alarm1.getMinutes());
+                        int minute2 = Integer.parseInt(alarm2.getMinutes());
 
-                int hourComparison = Integer.compare(hour1, hour2);
-                if (hourComparison != 0) {
-                    return hourComparison;
-                }
+                        int hourComparison = Integer.compare(hour1, hour2);
+                        if (hourComparison != 0) {
+                            return hourComparison;
+                        }
 
-                int minuteComparison = Integer.compare(minute1, minute2);
-                if (minuteComparison != 0) {
-                    return minuteComparison;
-                }
-                return Integer.compare(alarm2.getIsOn(), alarm1.getIsOn());
+                        int minuteComparison = Integer.compare(minute1, minute2);
+                        if (minuteComparison != 0) {
+                            return minuteComparison;
+                        }
+                        return Integer.compare(alarm2.getIsOn(), alarm1.getIsOn());
+                    }
+                });
             }
-        });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-//    public String getNearestAlarmCountdown() {
-//        long currentTimeMillis = System.currentTimeMillis();
-//        long nearestAlarmTimeMillis = Long.MAX_VALUE;
-//
-//        String nearestAlarmTime = null;
-//
-//        for (AlarmModel alarm : alarms) {
-//            int hour = Integer.parseInt(alarm.getHours());
-//            int minute = Integer.parseInt(alarm.getMinutes());
-//            long alarmTimeMillis = TimeUnit.HOURS.toMillis(hour) + TimeUnit.MINUTES.toMillis(minute);
-//
-//            if (alarmTimeMillis > currentTimeMillis && alarmTimeMillis < nearestAlarmTimeMillis) {
-//                nearestAlarmTimeMillis = alarmTimeMillis;
-//                nearestAlarmTime = String.format(Locale.getDefault(), "%02d:%02d", hour, minute);
-//            }
-//        }
-//
-//        if (nearestAlarmTime == null) {
-//            return "No alarms set";
-//        } else {
-//            return nearestAlarmTime;
-//        }
-//    }
 
 }
