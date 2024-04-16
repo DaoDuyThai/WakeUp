@@ -6,9 +6,9 @@ WakeUp is a an Android alarm clock application developed in Java using Android S
 
 ![Screenshot 1](screenshots/screenshot1.jpeg)
 
-![Screenshot 2](screenshots/screenshot2.png)
+![Screenshot 2](screenshots/screenshot2.jpeg)
 
-![Screenshot 3](screenshots/screenshot3.png)
+![Screenshot 3](screenshots/screenshot3.jpeg)
 
 ## Features
 
